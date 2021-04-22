@@ -7,7 +7,6 @@ import (
 	"testing"
 	"time"
 
-	"git.garena.com/shopee/sz-devops/observability/monitoring-platform/pkg/logutil"
 	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/jinzhu/gorm"
@@ -17,7 +16,7 @@ import (
 var g *gorm.DB
 
 func initDB() {
-	EndPoint := "root:root@tcp(localhost:3456)/shopee_infra_monitor_datasource_sg_db"
+	EndPoint := "root:root@tcp(localhost:3456)/xxxxx"
 	if db, err := sql.Open("mysql", EndPoint); err != nil {
 		panic(err)
 	} else {
@@ -28,16 +27,6 @@ func initDB() {
 			panic(err)
 		}
 	}
-	go func() {
-		logconf := &logutil.LoggingConf{
-			Debug:       true,
-			OutputPaths: []string{"./info.log"},
-			ErrPaths:    []string{"./error.log"},
-		}
-		l, _ := logutil.SetupZapLogging(logconf, "elector-test")
-		defer l.Sync()
-		time.Sleep(10 * time.Second)
-	}()
 }
 
 func BenchmarkKeepalive(b *testing.B) {

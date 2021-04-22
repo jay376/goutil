@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"git.garena.com/shopee/sz-devops/observability/monitoring-platform/pkg/comm"
 	"github.com/jinzhu/gorm"
+	"github.com/xjbdjay/goutil/comm"
 	"go.uber.org/zap"
 )
 
