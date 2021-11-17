@@ -1,5 +1,7 @@
 package comm
 
+import "sort"
+
 func lengthOfLongestSubstring(s string) int {
 	length := len(s)
 	strmp := [256]int{}
@@ -86,4 +88,78 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 		}
 	}
 	return ret
+}
+
+func threeSum(ns []int) [][]int {
+	sort.Ints(ns)
+	res := [][]int{}
+	for i := 0; i < len(ns)-1; i++ {
+		if ns[i] > 0 {
+			break
+		}
+		if i > 0 && ns[i] == ns[i-1] {
+			continue
+		}
+		for l, r := i+1, len(ns)-1; l < r; {
+			if l > i+1 && ns[l] == ns[l-1] {
+				l++
+				continue
+			}
+			if r < len(ns)-1 && ns[r] == ns[r+1] {
+				r--
+				continue
+			}
+
+			sum := ns[l] + ns[r] + ns[i]
+			switch {
+			case sum == 0:
+				res = append(res, []int{ns[l], ns[i], ns[r]})
+				l++
+				r--
+			case sum < 0:
+				l++
+			case sum > 0:
+				r--
+			}
+		}
+	}
+
+	return res
+}
+
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	head := &ListNode{}
+	c := 0
+	r1 := head
+	for l1 != nil || l2 != nil {
+		value := c
+		if l1 != nil {
+			value = value + l1.Val
+			l1 = l1.Next
+		}
+
+		if l2 != nil {
+			value = value + l2.Val
+			l2 = l2.Next
+		}
+		node := &ListNode{
+			Val: value % 10,
+		}
+		c = value / 10
+		r1.Next = node
+		r1 = node
+	}
+	if c > 0 {
+		r1.Next = &ListNode{
+			Val: c,
+		}
+	}
+	return head.Next
 }
