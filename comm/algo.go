@@ -163,3 +163,23 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 	return head.Next
 }
+
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	length := 0
+	for p := head; p != nil; p = p.Next {
+		length++
+	}
+	if length < n {
+		return head
+	}
+	moveNum := length - n
+	if moveNum == 0 {
+		return head.Next
+	}
+	p := head
+	for ; moveNum > 1; moveNum-- {
+		p = p.Next
+	}
+	p.Next = p.Next.Next
+	return head
+}
