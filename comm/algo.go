@@ -1,6 +1,8 @@
 package comm
 
-import "sort"
+import (
+	"sort"
+)
 
 func lengthOfLongestSubstring(s string) int {
 	length := len(s)
@@ -183,3 +185,133 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	p.Next = p.Next.Next
 	return head
 }
+
+func maxSubArray(nums []int) int {
+	max := nums[0]
+	for i := 1; i < len(nums); i++ {
+		if nums[i-1] > 0 {
+			nums[i] += nums[i-1]
+		}
+		if nums[i] > max {
+			max = nums[i]
+		}
+	}
+	return max
+}
+
+func minWindow(s string, t string) string {
+	idxs := [256]int{0}
+	left, right := 0, 0
+	find, need := 0, 0
+	for _, c := range t {
+		if idxs[int(c)] == 0 {
+			need++
+		}
+		idxs[int(c)] = 1
+	}
+	duplicate := false
+	for idx, c := range s {
+		if idxs[int(c)] > 1 && find == need {
+			duplicate = true
+		}
+		if idxs[int(c)] == 1 {
+			find++
+			idxs[int(c)]++
+			if left == 0 {
+				left = idx
+			} else {
+				right = idx
+			}
+		}
+	}
+	if duplicate || need != find {
+		return ""
+	}
+	return s[left : right+1]
+}
+
+func trap(height []int) int {
+	if len(height) < 3 {
+		return 0
+	}
+	var sum int
+	beg, end, mid := -1, -1, -1
+	for idx := 0; idx < len(height); idx++ {
+		val := height[idx]
+		if beg == -1 {
+			if val > 0 {
+				beg = idx
+			}
+		} else if val > 0 {
+			if val < height[beg] {
+				if mid == -1 {
+					mid = idx
+				} else if val >= height[mid] {
+					mid = idx
+				}
+			} else {
+				end = idx
+			}
+		}
+
+		if end != -1 {
+			for i := beg + 1; i < end; i++ {
+				sum += height[beg] - height[i]
+			}
+			beg = end
+			mid = -1
+			end = -1
+			idx = beg
+		} else if idx == len(height)-1 && mid != -1 {
+			for i := beg + 1; i < mid; i++ {
+				sum += height[mid] - height[i]
+			}
+			beg = mid
+			mid = -1
+			end = -1
+			idx = beg
+		}
+	}
+	if end != -1 {
+		for idx := beg + 1; idx < end; idx++ {
+			sum += height[beg] - height[idx]
+		}
+	} else if mid != -1 {
+		for idx := beg + 1; idx < mid; idx++ {
+			sum += height[mid] - height[idx]
+		}
+	}
+	return sum
+}
+
+func swapPairs(node *ListNode) *ListNode {
+	if node == nil || node.Next == nil {
+		return node
+	}
+	p := node
+	phead := &ListNode{}
+	var tmp, tail, ret *ListNode
+	i := 0
+	for p != nil {
+		tmp = p
+		p = p.Next
+		tmp.Next = phead.Next
+		phead.Next = tmp
+		i++
+		if tail == nil {
+			tail = tmp
+		}
+		if i%2 == 0 {
+			if ret == nil {
+				ret = phead.Next
+			}
+			phead = tail
+			tail = nil
+		}
+	}
+	return ret
+}
+
+// func reverseBetween(head *ListNode, left int, right int) *ListNode {
+
+// }
