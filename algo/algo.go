@@ -312,6 +312,76 @@ func swapPairs(node *ListNode) *ListNode {
 	return ret
 }
 
-// func reverseBetween(head *ListNode, left int, right int) *ListNode {
+// https://leetcode-cn.com/problems/reverse-linked-list-ii/
+func reverseBetween(head *ListNode, left int, right int) *ListNode {
+	phead := &ListNode{}
+	phead.Next = head
+	prev := phead
+	p := head
+	var tail *ListNode
+	for i := 0; i < right; i++ {
+		node := p
+		p = p.Next
+		if i >= left-1 {
+			if i == left-1 {
+				tail = node
+			}
+			node.Next = prev.Next
+			prev.Next = node
+			if i == right-1 {
+				tail.Next = p
+				break
+			}
+		} else {
+			prev = node
+		}
+	}
 
-// }
+	return phead.Next
+}
+
+// https://leetcode-cn.com/problems/odd-even-linked-list/
+// 输入: 2->1->3->5->6->4->7->NULL
+// 输出: 2->3->6->7->1->5->4->NULL
+func oddEvenList(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	odd, even := head, head.Next
+	p1, p2 := odd, even
+	for p1 != nil && p2 != nil {
+		p1.Next = p2.Next
+		if p2.Next == nil {
+			break
+		}
+		p1 = p2.Next
+		p2.Next = p1.Next
+		p2 = p2.Next
+	}
+	p1.Next = even
+	return head
+}
+
+func longestConsecutive(nums []int) int {
+	counts := make(map[int]int)
+	max := 0
+	for _, num := range nums {
+		counts[num] = 0
+	}
+	for _, num := range nums {
+		n := 1
+		for {
+			if c, ok := counts[num]; ok && c < n {
+				counts[num] = n
+				if n > max {
+					max = n
+				}
+				num++
+				n++
+			} else {
+				break
+			}
+		}
+	}
+	return max
+}
