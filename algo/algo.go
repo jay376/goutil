@@ -53,6 +53,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
+// https://leetcode.cn/problems/reverse-nodes-in-k-group/
 func reverseKGroup(head *ListNode, k int) *ListNode {
 	var ret, tail *ListNode
 	var front = &ListNode{}
@@ -384,4 +385,28 @@ func longestConsecutive(nums []int) int {
 		}
 	}
 	return max
+}
+
+func quick_sort(nums []int) {
+	length := len(nums)
+	j := 0
+	if length <= 1 {
+		return
+	}
+	stub := nums[0]
+	for i := 1; i < length; i++ {
+		if nums[i] < stub {
+			tmp := nums[j]
+			nums[j] = nums[i]
+			nums[i] = tmp
+			j++
+		}
+	}
+	if j == 0 {
+		j++
+	} else if j == length-1 {
+		j--
+	}
+	quick_sort(nums[:j])
+	quick_sort(nums[j:])
 }

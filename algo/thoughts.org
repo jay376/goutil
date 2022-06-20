@@ -1,0 +1,31 @@
+#+TITLE: Thoughts
+
+* 双指针
+  ** 数组
+  - 三数之和
+    排序+双指针后找目标和
+    https://leetcode.cn/problems/3sum/solution/san-shu-zhi-he-by-leetcode-solution/
+  - 最大盛水容器
+    https://leetcode.cn/problems/container-with-most-water/
+  l r不断夹击，遍历数组
+* 滑动窗口
+  也是双指针一种
+  - 找最小覆盖子串
+  https://leetcode.cn/problems/minimum-window-substring/submissions/
+  - 保存下标也是很用的，等同于保存值本身，但是还多了更多的信息
+    例如滑动窗口求最大值，https://leetcode.cn/problems/sliding-window-maximum/solution/shi-pin-jie-xi-shuang-duan-dui-lie-hua-dong-chuang/
+
+* 快慢指针
+- 针对链表, 判断有环
+
+* hash表，判断数组里和为k
+  - 简单两数之和为k
+
+  - 子数组和为k
+    转换成数组s[i] = sum{a[0....i]}
+    转换问题成s[j] - s[i] = k, 这就是两数之差为k
+    https://leetcode.cn/problems/subarray-sum-equals-k/solution/he-wei-kde-zi-shu-zu-by-leetcode-solution/
+* 贪心法
+  - 跳跃游戏
+    每次选最优跳
+    https://leetcode.cn/problems/jump-game-ii/submissions/
