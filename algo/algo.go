@@ -387,26 +387,51 @@ func longestConsecutive(nums []int) int {
 	return max
 }
 
+//	func quick_sort(nums []int) {
+//		length := len(nums)
+//		j := 0
+//		if length <= 1 {
+//			return
+//		}
+//		stub := nums[0]
+//		for i := 1; i < length; i++ {
+//			if nums[i] < stub {
+//				tmp := nums[j]
+//				nums[j] = nums[i]
+//				nums[i] = tmp
+//				j++
+//			}
+//		}
+//		// if j == 0 {
+//		// 	j++
+//		// } else if j == length-1 {
+//		// 	j--
+//		// }
+//		// fmt.Println(length)
+//		// fmt.Println(j)
+//		quick_sort(nums[:j])
+//		quick_sort(nums[j:])
+//	}
 func quick_sort(nums []int) {
 	length := len(nums)
-	j := 0
 	if length <= 1 {
 		return
 	}
-	stub := nums[0]
+
+	pivot := nums[0]
+	j := 0
+
 	for i := 1; i < length; i++ {
-		if nums[i] < stub {
-			tmp := nums[j]
-			nums[j] = nums[i]
-			nums[i] = tmp
+		if nums[i] < pivot {
 			j++
+			nums[j], nums[i] = nums[i], nums[j]
 		}
 	}
-	if j == 0 {
-		j++
-	} else if j == length-1 {
-		j--
-	}
+
+	// Swap pivot to its correct position
+	nums[0], nums[j] = nums[j], nums[0]
+
+	// Recursively sort the left and right sub-arrays
 	quick_sort(nums[:j])
-	quick_sort(nums[j:])
+	quick_sort(nums[j+1:])
 }

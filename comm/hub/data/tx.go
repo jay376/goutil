@@ -4,7 +4,8 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	bolt "github.com/coreos/bbolt"
+
+	bolt "go.etcd.io/bbolt"
 )
 
 type readtx struct {

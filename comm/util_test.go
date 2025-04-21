@@ -4,8 +4,11 @@ import (
 	"encoding/csv"
 	"fmt"
 	"io/ioutil"
+	"maps"
 	"os"
+	"slices"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/yaml.v2"
@@ -102,4 +105,35 @@ func TestParse(t *testing.T) {
 	jobsFile, err = ioutil.ReadFile("jobL.yaml")
 	yaml.Unmarshal(jobsFile, &jobsL)
 	diff(jobsT, jobsL)
+}
+
+func TestS3(t *testing.T) {
+	assert.Nil(t, list())
+}
+
+func TestSelect(t *testing.T) {
+	var ch chan int
+	realCh := make(chan int, 1000)
+	for {
+		select {
+		case ch <- 1:
+			t.Log("case 1")
+			fmt.Println("case 1")
+			ch = nil
+		default:
+			t.Log("default")
+			ch = realCh
+		}
+		time.Sleep(time.Second)
+	}
+}
+
+func TestMaps(t *testing.T) {
+	m1 := map[int]string{
+		1000: "THOUSAND",
+	}
+	s1 := []string{"zero", "one", "two", "three"}
+	maps.Insert(m1, slices.All(s1))
+	fmt.Println("m1 is:", m1)
+	min(1, 2)
 }

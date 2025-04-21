@@ -29,3 +29,7 @@
   - 跳跃游戏
     每次选最优跳
     https://leetcode.cn/problems/jump-game-ii/submissions/
+* 快速选择
+类似快排，但是partition后会丢弃一半，所以任然是0(N)
+(1+1/2+1/4+1/8...)*n 等比数列
+选取数组第k大，march/algo.go

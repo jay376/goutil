@@ -70,7 +70,7 @@ func TestStruct(t *testing.T) {
 }
 
 func TestSort(t *testing.T) {
-	ns := []int{10, 9, 2, 5, 3, 7, 101, 18}
+	ns := []int{10, 11}
 	// ns := []int{5, 1}
 	quick_sort(ns)
 	fmt.Println(ns)

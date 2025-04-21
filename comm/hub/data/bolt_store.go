@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	bolt "github.com/coreos/bbolt"
+	bolt "go.etcd.io/bbolt"
 )
 
 var defaultBucket = []byte("DATA")
@@ -44,6 +44,7 @@ type boltstore struct {
 
 func newBoltStore(path string) *boltstore {
 	db, err := bolt.Open(path, 0600, nil)
+
 	if err != nil {
 		panic(err)
 	}

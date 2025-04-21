@@ -35,7 +35,4 @@ func TestError(t *testing.T) {
 	fmt.Printf("%v\n", &c)
 	c, e := test()
 	fmt.Printf("%v, %v\n", &c, e)
-
-	n := lengthOfLongestSubstring("au")
-	fmt.Println(n)
 }
